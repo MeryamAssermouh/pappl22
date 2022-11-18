@@ -20,6 +20,13 @@ public class Envoi  {
     public Envoi() {
     }
     
+    /**
+     * Cette méthode permet l'envoi d'un texte par mail à une personne particulière 
+     * @param recepient
+     * @param subject
+     * @param text
+     * @throws MessagingException 
+     */
     public static void send(String recepient, String subject, String text) throws MessagingException {
         System.out.println("preparing to send mail");
         Properties properties=new Properties();
@@ -39,6 +46,18 @@ public class Envoi  {
         Transport.send(message);
         System.out.println("Message sent !");
     }
+    
+    /**
+     * Cette méthode permet de créer un message pour l'envoyer par mail 
+     * @param session
+     * @param myAccountEmail
+     * @param recepient
+     * @param subject
+     * @param text
+     * @return
+     * @throws AddressException
+     * @throws MessagingException 
+     */
     private static Message prepareMessage(Session session,String myAccountEmail,String recepient,String subject, String text) throws AddressException, MessagingException{
    
             Message message= new MimeMessage(session);
