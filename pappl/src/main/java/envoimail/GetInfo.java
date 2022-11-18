@@ -28,6 +28,12 @@ public class GetInfo{
         this.daomail =new InfoMail();
     }
     
+    /**
+     * Cette méthode permet d'envoyer des mails d'alerte au redevable et à l'agent 
+       avant et après la deadline en se basant sur la liste générée par la méthode getListeEchenaceMail()
+     * @throws IOException
+     * @throws MessagingException 
+     */
     public void VerifierListe() throws IOException, MessagingException{
         Envoi sendmail=new Envoi();
         ArrayList<DateMail> listDatemail=this.getListeEchenaceMail();
@@ -35,31 +41,42 @@ public class GetInfo{
         ArrayList<String> jourMessageRedevable=daomail.lireInformationMail(true);
         ArrayList<String> jourMessageAgent=daomail.lireInformationMail(false);
         for (DateMail dm: listDatemail){
-            System.out.println("mas" + date.plusDays(Long.parseLong(jourMessageRedevable.get(1))));
-            System.out.println("menos" + date.minusDays(Long.parseLong(jourMessageRedevable.get(3))));
-           if  (date.plusDays(Long.parseLong(jourMessageRedevable.get(1))).isEqual(dm.getDatedeadline())){
-               System.out.println("entro1");
+            //Afficher la date d'envoi du mail de rappel au redevable (avant la deadline)
+            System.out.println("Date de rappel pour redevable" + date.plusDays(Long.parseLong(jourMessageRedevable.get(1))));
+            //Afficher la date d'envoi du mail d'alerte au redevable (après la deadline)
+            System.out.println("Date d'alerte pour redevable" + date.minusDays(Long.parseLong(jourMessageRedevable.get(3))));
+            //Envoyer un mail de rappel au redevable (avant la deadline)
+            if (date.plusDays(Long.parseLong(jourMessageRedevable.get(1))).isEqual(dm.getDatedeadline())){
+               System.out.println("Mail de rappel redevable");
                sendmail.send(dm.getMailredevable(), "Echéance à payer, Date deadline:"+dm.getDatedeadline(),jourMessageRedevable.get(0));
                
-           }
-           if  (date.minusDays(Long.parseLong(jourMessageRedevable.get(3))).isEqual(dm.getDatedeadline())){
-                System.out.println("entro2");
-               sendmail.send(dm.getMailredevable(),"Echéance non payée, Date deadline:"+dm.getDatedeadline(),jourMessageRedevable.get(2));
+            }
+            //Envoyer un mail d'alerte au redevable (après la deadline) 
+            if (date.minusDays(Long.parseLong(jourMessageRedevable.get(3))).isEqual(dm.getDatedeadline())){
+                System.out.println("Mail d'alerte redevable");
+                sendmail.send(dm.getMailredevable(),"Echéance non payée, Date deadline:"+dm.getDatedeadline(),jourMessageRedevable.get(2));
               
-           }
-           if  (date.plusDays(Long.parseLong(jourMessageAgent.get(1))).isEqual(dm.getDatedeadline())){
-               System.out.println("entro3");
-               sendmail.send(dm.getMailagent(), "Echéance à payer, Date deadline:"+dm.getDatedeadline(),jourMessageAgent.get(0) + "\n Le redevable est " + dm.getNom());
+            }
+            //Envoyer un mail de rappel à l'agent (avant deadline) 
+            if  (date.plusDays(Long.parseLong(jourMessageAgent.get(1))).isEqual(dm.getDatedeadline())){
+                System.out.println("Mail de rappel agent");
+                sendmail.send(dm.getMailagent(), "Echéance à payer, Date deadline:"+dm.getDatedeadline(),jourMessageAgent.get(0) + "\n Le redevable est " + dm.getNom());
                
-           }
-           if  (date.minusDays(Long.parseLong(jourMessageAgent.get(3))).isEqual(dm.getDatedeadline())){
-               System.out.println("entro4");
-               sendmail.send(dm.getMailagent(), "Echéance non payée, Date deadline:"+dm.getDatedeadline(),jourMessageAgent.get(2) + "\n Le redevable est " + dm.getNom());
+            }
+            //Envoyer un mail d'alerte à l'agent (après deadline)
+            if (date.minusDays(Long.parseLong(jourMessageAgent.get(3))).isEqual(dm.getDatedeadline())){
+                System.out.println("Mail d'alerte agent");
+                sendmail.send(dm.getMailagent(), "Echéance non payée, Date deadline:"+dm.getDatedeadline(),jourMessageAgent.get(2) + "\n Le redevable est " + dm.getNom());
                
-           }
+            }
         } 
     }
     
+    /**
+     * Cette méthode permet d'avoir une liste d'instances "DateMail" pour les personnes 
+       redevables qui n'ont pas encore réglé leurs paiements et qui n'ont pas un statut d'annulation
+     * @return 
+     */
     public ArrayList<DateMail> getListeEchenaceMail(){
           ArrayList<DateMail> listDatemail = new ArrayList<>();
       
@@ -75,28 +92,21 @@ public class GetInfo{
         stmt.setBoolean(2, false);
         ResultSet res = stmt.executeQuery();
         
-        if(res.next()){
-        
-         do{  
-             DateMail dm = new DateMail();
-             dm.setMailagent(res.getString("adresse_mail_agent"));
-             dm.setMailredevable(res.getString("adresse_mail_redevable"));
-             dm.setDatedeadline(res.getDate("date_deadline").toLocalDate());
-             dm.setNom(res.getString("nom_redevable"));
-             listDatemail.add(dm);
-        }while (res.next()); 
-            
-        }
+        while(res.next()){
+                DateMail dm = new DateMail();
+                dm.setMailagent(res.getString("adresse_mail_agent"));
+                dm.setMailredevable(res.getString("adresse_mail_redevable"));
+                dm.setDatedeadline(res.getDate("date_deadline").toLocalDate());
+                dm.setNom(res.getString("nom_redevable"));
+                listDatemail.add(dm);
+         }
          stmt.close() ;
          conn.close() ; 
         
          }
-    catch (SQLException e) {
-             e.printStackTrace();
-    }
-    catch (java.lang.ClassNotFoundException e) {
-        e.printStackTrace();
-    }   
-       return listDatemail; 
+         catch(SQLException | java.lang.ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return listDatemail; 
     }
 }
