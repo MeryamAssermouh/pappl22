@@ -25,12 +25,15 @@ public class InfoMail {
      final static String url="jdbc:postgresql://localhost/PAPPL";
      final static String motDePass = "0idcili1";
     
+    /**
+     * Cette méthode permet d'enregistrer les mails selon le statut de la personne (redevable ou pas)
+     * @param estRedevable
+     * @param messageAvant
+     * @param jourAvant
+     * @param messageApres
+     * @param jourApres 
+     */
     public void enregistrerMail (Boolean estRedevable,String messageAvant, String jourAvant,String messageApres, String jourApres)  {
-        
-        String messageAvantModif = messageAvant;
-        String messageApresModif = messageApres;
-        //String messageAvantModif = this.modifierApostrophe(messageAvant);
-        //String messageApresModif = this.modifierApostrophe(messageApres);
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -42,7 +45,7 @@ public class InfoMail {
 
             PreparedStatement  stmt=conn.prepareStatement(requete1);
 
-            stmt.setString(1,messageAvantModif);
+            stmt.setString(1,messageAvant);
             stmt.setInt(2,Integer.parseInt(jourAvant));
             if(estRedevable){
                stmt.setString(3,"redevableAvant"); 
@@ -51,7 +54,7 @@ public class InfoMail {
               stmt.setString(3,"agentAvant");  
               stmt.setString(6,"agentApres"); 
             }       
-            stmt.setString(4,messageApresModif);
+            stmt.setString(4,messageApres);
             stmt.setInt(5,Integer.parseInt(jourApres));
           
 
@@ -69,9 +72,12 @@ public class InfoMail {
  
     }
     
-    
- 
-    
+    /**
+     * Cette méthode permet d'afficher le corps du message contenu dans le mail ainsi que 
+       le jour selon le statut de la personne (redevable ou pas)
+     * @param estRedevable
+     * @return 
+     */
     public ArrayList<String> lireInformationMail(Boolean estRedevable) {
            
         try {
