@@ -24,6 +24,14 @@ public class DaoHistorique {
      final static String url="jdbc:postgresql://localhost/PAPPL";
      final static String motDePass = "0idcili1";
      
+     /**
+      * Cette méthode permet d'avoir l'historique de dettes d'un redevable 
+      * @param nom nom et prénom du redevable 
+      * @param annee année de la création de la dette 
+      * @param moisDebut mois de début de la dette 
+      * @param moisFin mois de fin de la dette 
+      * @return 
+      */
      public ArrayList<DetteSimplifiee> demandeHistorique(String  nom, int annee, int moisDebut, int moisFin){
         
       ArrayList<DetteSimplifiee> historiques = new ArrayList<>();
