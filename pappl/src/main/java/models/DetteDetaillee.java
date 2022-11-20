@@ -23,14 +23,20 @@ public class DetteDetaillee extends Dette {
     *toutes les echenaces detaillee de cette dette
     */
     public ArrayList<EcheanceDetaillee> ed;
+    
     /**
-    *le constructeur pour creer une dette simplifiee avec les infos d'une dette et des echeances proposee par l'agence comptable
-    *@param actionEffectuee les actions que l'agence comptable a effectuee sur le redevable
-    *@param actionEntreprendre les actions que l'agence comptable va entreprendre sur le redevable(par exemple si le redevable ne paie toujours pas une echeance)
-    *@param attribut une attribut pour juger si la dette est toute payee et si l'on classe le redevable dans la liste des actifs ou dans l'historique
-    *@param ed toutes les echenaces detaillee de cette dette
-    */
-
+     * le constructeur pour créer une dette détaillée avec les infos d'une dette et des echeances proposées par l'agence comptable
+     * @param actionEffectuee les actions que l'agence comptable a effectuee sur le redevable
+     * @param actionEntreprendre les actions que l'agence comptable va entreprendre sur le redevable(par exemple si le redevable ne paie toujours pas une echeance)
+     * @param ed toutes les echenaces detaillee de cette dette
+     * @param libelle
+     * @param montant
+     * @param infoComplementaire
+     * @param agent
+     * @param redev
+     * @param detteActuelle
+     * @param idDette 
+     */
     public DetteDetaillee(String actionEffectuee, String actionEntreprendre,  ArrayList<EcheanceDetaillee> ed, String libelle, Double montant, String infoComplementaire, AgentComptable agent, Redevable redev, Double detteActuelle, String idDette) {
         super(libelle, montant, infoComplementaire, agent, redev, detteActuelle,idDette);
         this.actionEffectuee = actionEffectuee;
