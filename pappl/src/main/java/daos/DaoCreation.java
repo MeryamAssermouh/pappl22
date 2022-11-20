@@ -21,6 +21,19 @@ import models.EcheanceSimplifiee;
  * @author 96441
  */
 public class DaoCreation {
+     
+     /**
+     * Cette méthode permet la création d'un nouveau redevable 
+     * @param mailRedevable adresse mail du redevable 
+     * @param nomRedevable nom et prénom du redevable 
+     * @param listEcheance liste des échéances 
+     * @param libelle 
+     * @param montant montant de la dette 
+     * @param infoComplementaire
+     * @param actionentre action entreprendre 
+     * @param actEfect action effectuée 
+     * @param nomAgent nom de l'agent chargé 
+     */
      public void CreationRedevable(String mailRedevable, String nomRedevable, ArrayList<EcheanceSimplifiee> listEcheance, String libelle, String montant, String infoComplementaire, String actionentre, String actEfect ,String nomAgent){
        try {
         Class.forName("org.postgresql.Driver");
