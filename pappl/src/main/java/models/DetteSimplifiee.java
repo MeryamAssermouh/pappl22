@@ -14,21 +14,24 @@ import java.util.ArrayList;
 public class DetteSimplifiee extends Dette{
     public LocalDate dateCreation;
     public ArrayList<EcheanceSimplifiee> es;
-     /**
-    *le constructeur pour creer une dette simplifiee avec les infos d'une dette et des echeances proposee par l'agence comptable
-    *@param datecreation la date de creation de l'echeancier du redevable
-    *@param libelle 
-    *@param montant
-    *@param infoComplemantaire
-    *@param agent (l'agent qui est responsable de traiter cette dette)
-    *@param redev 
-    */
     
     
     public DetteSimplifiee() {
         
     }
-
+    
+    /**
+     * le constructeur pour créer une dette simplifiée avec les infos d'une dette et des echeances proposées par l'agence comptable
+     * @param dateCreation la date de creation de l'echeancier du redevable
+     * @param es
+     * @param libelle
+     * @param montant
+     * @param infoComplementaire
+     * @param agent l'agent qui est responsable de traiter cette dette
+     * @param redev le redevable concerné 
+     * @param detteActuelle
+     * @param idDette 
+     */
     public DetteSimplifiee(LocalDate dateCreation, ArrayList<EcheanceSimplifiee> es, String libelle, Double montant, String infoComplementaire, AgentComptable agent, Redevable redev, Double detteActuelle, String idDette) {
         super(libelle, montant, infoComplementaire, agent, redev, detteActuelle, idDette);
         this.dateCreation = dateCreation;
