@@ -14,15 +14,15 @@ public class Personne {
     private String nom;
     private String adresseMail;
 
-    /**
-     * Constructerur de la classe Personne
-     * @param nom nom et prénom de la personne 
-     * @param adresseMail adresse mail de la personne
-     */
     public Personne(){
         
     }
     
+     /**
+     * Constructerur de la classe Personne
+     * @param nom nom et prénom de la personne 
+     * @param adresseMail adresse mail de la personne
+     */
     public Personne(String nom, String adresseMail) {
         this.nom = nom;
         this.adresseMail = adresseMail;
