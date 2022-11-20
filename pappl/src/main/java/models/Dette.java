@@ -17,18 +17,21 @@ public class Dette {
     private Redevable redev;
     private Double detteActuelle;
     private String idDette;
-    /**
-    *le constructeur pour creer un objet Dette quan on sait les infos necessaires
-    *@param libelle 
-    *@param montant
-    *@param infoComplemantaire
-    *@param agent (l'agent qui est responsable de traiter cette dette)
-    *@param redev 
-    */
     
     public Dette(){
         
     }
+    
+    /**
+     * le constructeur pour créer un objet Dette sachant les infos necessaires
+     * @param libelle
+     * @param montant montant de la dette 
+     * @param infoComplementaire
+     * @param agent l'agent responsable du traitement de la dette 
+     * @param redev le redevable concerné 
+     * @param detteActuelle la dette actuelle 
+     * @param idDette 
+     */
     public Dette(String libelle, Double montant, String infoComplementaire, AgentComptable agent, Redevable redev, Double detteActuelle, String idDette) {
         this.libelle = libelle;
         this.montant = montant;
