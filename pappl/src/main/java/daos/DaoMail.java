@@ -70,7 +70,12 @@ public class DaoMail {
     
     
  
-    
+    /**
+     * Cette méthode permet d'afficher le corps du message contenu dans le mail ainsi que 
+       le jour selon le statut de la personne (redevable ou pas)
+     * @param estRedevable
+     * @return 
+     */
     public ArrayList<String> lireInformationMail(Boolean estRedevable) {
            
         try {
@@ -97,11 +102,8 @@ public class DaoMail {
                 } while (res.next());
             }
             return lignes;
-    }catch (SQLException e) {
+    }catch (SQLException | java.lang.ClassNotFoundException e) {
              e.printStackTrace();
-    }
-    catch (java.lang.ClassNotFoundException e) {
-        e.printStackTrace();
     }
         return null;
 }
