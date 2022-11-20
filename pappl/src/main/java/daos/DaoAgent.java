@@ -25,7 +25,10 @@ public class DaoAgent {
     }
     
     
-    
+    /**
+     * Permet d'obtenir la liste des agents comptables 
+     * @return 
+     */
      public ArrayList<AgentComptable> obtenirAgents(){
           ArrayList<AgentComptable> agents = new ArrayList<>();
           try {
@@ -59,7 +62,11 @@ public class DaoAgent {
         }
         return agents;
    }
-     
+ 
+     /**
+     * Permet d'ajouter un agent comptable 
+     * @param agent 
+     */
      public void ajouterAgent(AgentComptable agent){
          try {    
         Class.forName("org.postgresql.Driver");
@@ -88,6 +95,10 @@ public class DaoAgent {
     } 
     }
      
+     /**
+     * Mettre à jour les agents comptables 
+     * @param agents 
+     */
      public void mettreAJourAgents(ArrayList<AgentComptable> agents){
          try {
             Class.forName("org.postgresql.Driver");
@@ -119,6 +130,11 @@ public class DaoAgent {
         }
      }
      
+     /** 
+     * Permet de supprimer un agent comptable 
+     * @param agent
+     * @throws SQLException 
+     */
      public void effacerAgent(AgentComptable agent) throws SQLException{
         try {    
             Class.forName("org.postgresql.Driver");
