@@ -21,6 +21,10 @@ import models.EcheanceDetaillee;
  */
 public class DaoEdition {
     
+    /**
+     * Permet d'éditer les infos dans la base de données en se basant sur une dette détaillée particulière 
+     * @param dette dette détaillée
+     */
     public void editionInfo(DetteDetaillee dette){
      try {
         Class.forName("org.postgresql.Driver");
@@ -60,7 +64,13 @@ public class DaoEdition {
      ArrayList<String> echeancesDB = this.obtenirEcheancesPrecedentes(dette.getIdDette());
      this.mettreAJourEcheances(dette.getEd(),echeancesDB, dette.getIdDette());
     }
-   
+    
+   /**
+    * permet de mettre à jour les échéances d'une dette particulière  
+    * @param echeDetN liste d'échéances détaillées 
+    * @param echeBD
+    * @param idDette identifiant de la dette 
+    */
     public void mettreAJourEcheances(ArrayList<EcheanceDetaillee> echeDetN, ArrayList<String> echeBD, String idDette){
         for(EcheanceDetaillee echeance : echeDetN){
             if(!(echeance.getIdEcheance() == null)){
@@ -89,7 +99,12 @@ public class DaoEdition {
         
     }
     
-    
+    /**
+     * Permet d'ajouter une échéance 
+     * @param e échéance détaillée
+     * @param idDette identifiant de la dette 
+     * @return identifiant de l'échéance créée 
+     */
     public String ajouterEcheance(EcheanceDetaillee e, String idDette ){
         try {
             Class.forName("org.postgresql.Driver");
@@ -126,6 +141,10 @@ public class DaoEdition {
         return null;
     }
     
+    /**
+     * Permet de mettre à jour une échéance 
+     * @param e échéance détaillée 
+     */
      public void updateEcheance(EcheanceDetaillee e){
         try {
         Class.forName("org.postgresql.Driver");
@@ -159,7 +178,11 @@ public class DaoEdition {
         ex.printStackTrace();
     } 
     }
-     
+    
+    /**
+      * Permet de supprimer une échéance particulière 
+      * @param idEcheance identifiant de l'échéance 
+      */ 
     public void deleteEcheance(String idEcheance) {
         try {
             Class.forName("org.postgresql.Driver");
@@ -181,7 +204,11 @@ public class DaoEdition {
         }
     }
 
-    
+    /**
+     * Permet d'obtenir les échéances d'une dette particulière 
+     * @param idDette identifiant de la dette 
+     * @return 
+     */
     public ArrayList<String> obtenirEcheancesPrecedentes(String idDette){
         ArrayList<String> idsEcheances = new ArrayList<>();
         try {
@@ -212,6 +239,10 @@ public class DaoEdition {
         return idsEcheances;
     }
     
+    /**
+     * Cette méthode permet d'effacer une échéance 
+     * @param idDette identifiant de la dette 
+     */
     public void effacerEcheance(String idDette){
          try {
         Class.forName("org.postgresql.Driver");
@@ -235,6 +266,11 @@ public class DaoEdition {
         e.printStackTrace();
     }
    }
+    
+    /**
+     * Cette méthode permet l'obtention de la liste des agents comptables 
+     * @return 
+     */
       public ArrayList<AgentComptable> obtenirAgents(){
           ArrayList<AgentComptable> agents = new ArrayList<>();
           try {
@@ -265,7 +301,12 @@ public class DaoEdition {
         }
         return agents;
    }
-      
+   
+    /**
+    * Cette méthode permet d'obtenir l'Id d'un agent particulier 
+    * @param nom nom de l'agent 
+    * @return 
+    */
    public String obtenirIdAgent(String nom){
        
         String idAgent="";
